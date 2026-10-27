@@ -411,20 +411,19 @@ body { background: #0f172a; }
 .calculator { background: #292d33; }
 
 /* =========================================
-   PERFECT MOBILE LAYOUT
+   PERFECT MOBILE LAYOUT (Matches 8:48 PM)
    ========================================= */
 @media (max-width: 600px) {
   html, body {
     width: 100%;
-    height: 100vh;
-    height: 100dvh;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Prevents scrolling */
+    overflow-x: hidden;
     background: #0f172a;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   }
 
   body > h2,
@@ -435,86 +434,88 @@ body { background: #0f172a; }
 
   .workspace {
     width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 1rem; /* Outer margin so the rounded bottom shows */
+    padding: 1rem 0;
     box-sizing: border-box;
   }
 
+  /* Sets the exact width and bottom blank space */
   .calculator {
-    width: 100%;
-    height: 100%; /* Fills the screen */
-    max-width: 26rem;
-    margin: 0;
-    padding: 1rem 1rem 1.5rem 1rem;
+    width: 94%;
+    max-width: 24rem;
+    height: auto;
+    margin: 0 0 2rem 0;
+    padding: 1.5rem 1rem 2.5rem 1rem;
     border-radius: 10px 10px 100px 30px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
   }
 
   .model {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .screen {
     flex: 0 0 5.5rem;
-    margin: 0 0 1rem 0;
+    margin: 0.5rem 0 1rem 0;
   }
 
   .modifiers {
-    flex: 0 0 auto;
-    margin: 0 0 1rem 0;
+    margin: 1.5rem 0 1rem 0;
   }
 
-  /* Expand tables to fill vertical space */
-  .function-keys {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
+  .modifiers button {
+    width: 2.6rem;
+    height: 1.4rem;
   }
 
-  .basic-keys {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding-bottom: 0.5rem;
-  }
-
-  .function-keys tbody, .basic-keys tbody {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-  }
-
-  .function-keys tr, .basic-keys tr {
-    display: flex;
-    justify-content: space-between;
+  /* Scales tables perfectly to fill width */
+  .function-keys, .basic-keys {
     width: 100%;
+    margin: 1rem 0;
   }
 
   .function-keys td, .basic-keys td {
-    flex: 1;
-    padding: 0.2rem;
-    display: flex;
-    justify-content: center;
+    padding-bottom: 0.8rem;
+    padding-right: 0.1rem;
+    padding-left: 0.1rem;
   }
 
-  /* Expand buttons to fill width evenly */
-  .function-keys button, .basic-keys button {
+  /* Fluid buttons that fill the cells but cap at a maximum size */
+  .function-keys button {
     width: 100%;
-    height: 100%;
-    max-height: 2.8rem;
+    max-width: 3.2rem;
+    height: 2.2rem;
     font-size: 1rem;
+    border-radius: 6px;
   }
 
-  /* Fixed D-pad position to prevent overlapping */
-  .d-pad {
-    top: 14rem; 
+  .basic-keys button {
+    width: 100%;
+    max-width: 3.8rem;
+    height: 2.4rem;
+    font-size: 1.1rem;
   }
+
+  /* Exact absolute positioning over the keys (No hardcoded flex stretching) */
+  .d-pad {
+    top: 15.8rem; 
+    width: 82px;
+    height: 74px;
+  }
+
+  .replay {
+    width: 82px;
+    height: 74px;
+    line-height: 74px;
+    font-size: 10px;
+  }
+
+  .nav.up { left: 28px; top: 2px; }
+  .nav.down { left: 28px; top: 50px; }
+  .nav.left { left: 2px; top: 26px; }
+  .nav.right { left: 54px; top: 26px; }
 }
