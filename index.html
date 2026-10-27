@@ -4,12 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="./images/favicon.ico" sizes="any" />
   <script src="calculator.js" defer></script>
   <script src="lcd-display.js" defer></script>
   <script src="recorder.js" defer></script>
+  <script src="mobile-calculator-scale.js" defer></script>
   <title>Scientific Calculator</title>
 </head>
 
@@ -19,6 +20,7 @@
   <div class="workspace">
   <div class="calculator">
     <span class="model">fx-82MS</span>
+
     <div class="screen">
       <div class="indicators" id="indicators">
         <span id="ind-shift" class="ind"></span>
@@ -41,14 +43,13 @@
       <button class="mode simple-button" id="btn-mode" tabindex="3"></button>
     </div>
 
-    <!-- D-Pad Wrapper for perfectly fluid positioning -->
-    <div class="d-pad">
-      <div class="replay">Replay</div>
-      <button class="nav up">▲</button>
-      <button class="nav down">▼</button>
-      <button class="nav left">◀︎</button>
-      <button class="nav right">▶︎</button>
-    </div>
+    <div class="replay">Replay</div>
+
+    <button class="nav up">▲</button>
+    <button class="nav down">▼</button>
+    <button class="nav left">◀︎</button>
+    <button class="nav right">▶︎</button>
+
 
     <table class="function-keys">
       <tr>
@@ -159,7 +160,7 @@
           </button>
         </td>
         <td>
-          <button class="exp center-shift simple-button" data-func="exp">
+          <button class="exp center-shift simple-button" data-key="69" data-func="exp">
             EXP
           </button>
         </td>
@@ -217,40 +218,8 @@
   </section>
   </div>
 
-  <script>
-    // Subtle physical-calculator feedback: short beep + mobile haptic tap.
-    (() => {
-      let audioContext;
-      document.addEventListener('click', (event) => {
-        const button = event.target.closest('button');
-        if (!button || button.disabled) return;
+  <script src="button-feedback.js" defer></script>
 
-        // Vibration is supported mainly by Android browsers; iOS Safari ignores it.
-        if (window.navigator && typeof window.navigator.vibrate === 'function') {
-          try { window.navigator.vibrate(25); } catch (_) {}
-        }
-
-        // Generate a brief, quiet electronic key tone without external audio files.
-        try {
-          const AudioCtx = window.AudioContext || window.webkitAudioContext;
-          if (!AudioCtx) return;
-          audioContext = audioContext || new AudioCtx();
-          if (audioContext.state === 'suspended') audioContext.resume();
-          const oscillator = audioContext.createOscillator();
-          const gain = audioContext.createGain();
-          oscillator.type = 'sine';
-          oscillator.frequency.value = 880;
-          gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.055, audioContext.currentTime + 0.004);
-          gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.035);
-          oscillator.connect(gain);
-          gain.connect(audioContext.destination);
-          oscillator.start();
-          oscillator.stop(audioContext.currentTime + 0.04);
-        } catch (_) { /* Audio feedback is optional if the browser blocks it. */ }
-      }, true);
-    })();
-  </script>
 </body>
 
 </html>

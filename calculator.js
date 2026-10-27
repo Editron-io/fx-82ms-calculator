@@ -899,11 +899,6 @@ function computeEstX2() {
 
 // Main button click dispatcher
 function handleButtonClick(btn) {
-  // Vibrate for 25ms to simulate physical button press
-  if (window.navigator && typeof window.navigator.vibrate === 'function') {
-    try { window.navigator.vibrate(25); } catch (_) {}
-  }
-
   const btnId = btn.id;
   const func = btn.getAttribute("data-func");
   const keyAttr = btn.getAttribute("data-key");
