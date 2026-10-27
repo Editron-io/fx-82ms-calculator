@@ -39,7 +39,6 @@ body > h5 {
   border-top-right-radius: 10px;
   border-bottom-left-radius: 100px 30px;
   border-bottom-right-radius: 100px 30px;
-  /* stays positioned: the replay pad and nav arrows are absolute children */
   position: relative;
   flex: 0 0 auto;
   padding: 1.5rem;
@@ -198,7 +197,7 @@ td {
   content: "ON";
 }
 
-/* NEW FLUID D-PAD CONTAINER */
+/* FLUID D-PAD CONTAINER */
 .d-pad {
   position: absolute;
   top: 27%;
@@ -234,26 +233,10 @@ button.nav {
   z-index: 2;
 }
 
-/* Relative to the .d-pad container */
-.nav.up {
-  left: 26px;
-  top: 1px;
-}
-
-.nav.down {
-  left: 26px;
-  top: 47px;
-}
-
-.nav.left {
-  left: 1px;
-  top: 24px;
-}
-
-.nav.right {
-  left: 51px;
-  top: 24px;
-}
+.nav.up { left: 26px; top: 1px; }
+.nav.down { left: 26px; top: 47px; }
+.nav.left { left: 1px; top: 24px; }
+.nav.right { left: 51px; top: 24px; }
 
 button.nav.active {
   transform: scale(0.85);
@@ -380,290 +363,68 @@ button::after {
   line-height: 1.45;
 }
 
-.recorder [hidden] {
-  display: none !important;
-}
+.recorder [hidden] { display: none !important; }
+.rec-heading { margin: 0 0 0.9rem 0; font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; color: hsl(34, 68%, 72%); }
+.rec-controls { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+.recorder button { box-shadow: none; transition: background 0.15s ease, color 0.15s ease; }
+.rec-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: hsl(220, 9%, 32%); color: hsl(225, 20%, 88%); border: 1px solid rgba(226, 232, 240, 0.14); border-radius: 8px; padding: 0.5rem 0.85rem; font-family: Helvetica; font-size: 13px; }
+.rec-btn:hover { background: hsl(220, 9%, 38%); }
+.rec-btn.small { flex: 1 1 auto; justify-content: center; padding: 0.45rem 0.5rem; font-size: 12px; }
+.rec-btn.ghost { background: transparent; }
+.rec-dot { width: 9px; height: 9px; border-radius: 50%; background: hsl(353, 50%, 70%); }
+.recorder.is-recording .rec-btn#rec-toggle { background: hsl(353, 40%, 38%); border-color: hsl(353, 50%, 55%); }
+.recorder.is-recording .rec-dot { animation: rec-pulse 1s infinite; }
+@keyframes rec-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+.rec-count { font-size: 12px; color: hsl(225, 12%, 62%); }
+.rec-naming { margin-bottom: 0.75rem; }
+.rec-naming input { width: 100%; box-sizing: border-box; background: #0f172a; border: 1px solid rgba(226, 232, 240, 0.18); border-radius: 7px; padding: 0.5rem 0.6rem; color: hsl(225, 20%, 88%); font-family: Helvetica; font-size: 13px; }
+.rec-naming input:focus { outline: 1px solid hsl(34, 68%, 72%); }
+.rec-naming-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+.rec-save, .rec-discard { border-radius: 7px; padding: 0.45rem 0.9rem; font-family: Helvetica; font-size: 12.5px; border: 1px solid transparent; }
+.rec-save { background: hsl(34, 68%, 72%); color: #2a1f0d; }
+.rec-discard { background: transparent; color: hsl(225, 12%, 62%); border-color: rgba(226, 232, 240, 0.16); }
+.rec-list { display: flex; flex-direction: column; gap: 0.4rem; }
+.rec-item { display: flex; align-items: center; gap: 0.5rem; background: #101a2b; border: 1px solid rgba(226, 232, 240, 0.08); border-radius: 8px; padding: 0.5rem 0.6rem; }
+.rec-item .rec-play-name { flex: 1; text-align: left; background: none; border: none; padding: 0; color: hsl(225, 20%, 88%); font-family: Helvetica; font-size: 13px; }
+.rec-item .rec-play-name:hover { color: hsl(34, 68%, 72%); }
+.rec-item .rec-steps { font-size: 11px; color: hsl(225, 12%, 55%); }
+.rec-item .rec-delete { background: none; border: none; padding: 0 0.2rem; color: hsl(225, 12%, 55%); font-size: 15px; line-height: 1; }
+.rec-item .rec-delete:hover { color: hsl(353, 50%, 70%); }
+.rec-empty { color: hsl(225, 12%, 55%); font-size: 12.5px; text-align: center; padding: 0.4rem 0; }
+.rec-replay { margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px dashed rgba(226, 232, 240, 0.16); }
+.rec-replay-title { color: hsl(34, 68%, 72%); font-weight: bold; margin-bottom: 0.2rem; }
+.rec-replay-step { min-height: 2.6em; font-size: 12.5px; }
+.rec-replay-dots { display: flex; flex-wrap: wrap; gap: 4px; margin: 0.5rem 0 0.7rem; }
+.rec-replay-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(226, 232, 240, 0.2); }
+.rec-replay-dots i.done { background: hsl(34, 68%, 72%); }
+.rec-replay-dots i.current { background: #fff; transform: scale(1.35); }
+.rec-replay-controls { display: flex; gap: 0.4rem; }
+.rec-hint { margin: 1rem 0 0; font-size: 11.5px; color: hsl(225, 12%, 58%); }
+.rec-hint b { color: hsl(225, 20%, 84%); }
+.calculator button.rec-flash { box-shadow: 0 0 0 2px #fff, 0 0 14px 3px rgba(255, 255, 255, 0.6); }
 
-.rec-heading {
-  margin: 0 0 0.9rem 0;
-  font-size: 15px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: hsl(34, 68%, 72%);
-}
+button span.sup { font-size: xx-small !important; vertical-align: super; }
+.sub { font-size: xx-small; vertical-align: bottom; }
+.xxs { font-size: xx-small; }
 
-.rec-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.6rem;
-}
+body { background: #0f172a; }
+.calculator { background: #292d33; }
 
-.recorder button {
-  box-shadow: none;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-
-.rec-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: hsl(220, 9%, 32%);
-  color: hsl(225, 20%, 88%);
-  border: 1px solid rgba(226, 232, 240, 0.14);
-  border-radius: 8px;
-  padding: 0.5rem 0.85rem;
-  font-family: Helvetica;
-  font-size: 13px;
-}
-
-.rec-btn:hover {
-  background: hsl(220, 9%, 38%);
-}
-
-.rec-btn.small {
-  flex: 1 1 auto;
-  justify-content: center;
-  padding: 0.45rem 0.5rem;
-  font-size: 12px;
-}
-
-.rec-btn.ghost {
-  background: transparent;
-}
-
-.rec-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: hsl(353, 50%, 70%);
-}
-
-.recorder.is-recording .rec-btn#rec-toggle {
-  background: hsl(353, 40%, 38%);
-  border-color: hsl(353, 50%, 55%);
-}
-
-.recorder.is-recording .rec-dot {
-  animation: rec-pulse 1s infinite;
-}
-
-@keyframes rec-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.25;
-  }
-}
-
-.rec-count {
-  font-size: 12px;
-  color: hsl(225, 12%, 62%);
-}
-
-.rec-naming {
-  margin-bottom: 0.75rem;
-}
-
-.rec-naming input {
-  width: 100%;
-  box-sizing: border-box;
-  background: #0f172a;
-  border: 1px solid rgba(226, 232, 240, 0.18);
-  border-radius: 7px;
-  padding: 0.5rem 0.6rem;
-  color: hsl(225, 20%, 88%);
-  font-family: Helvetica;
-  font-size: 13px;
-}
-
-.rec-naming input:focus {
-  outline: 1px solid hsl(34, 68%, 72%);
-}
-
-.rec-naming-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.rec-save,
-.rec-discard {
-  border-radius: 7px;
-  padding: 0.45rem 0.9rem;
-  font-family: Helvetica;
-  font-size: 12.5px;
-  border: 1px solid transparent;
-}
-
-.rec-save {
-  background: hsl(34, 68%, 72%);
-  color: #2a1f0d;
-}
-
-.rec-discard {
-  background: transparent;
-  color: hsl(225, 12%, 62%);
-  border-color: rgba(226, 232, 240, 0.16);
-}
-
-.rec-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.rec-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #101a2b;
-  border: 1px solid rgba(226, 232, 240, 0.08);
-  border-radius: 8px;
-  padding: 0.5rem 0.6rem;
-}
-
-.rec-item .rec-play-name {
-  flex: 1;
-  text-align: left;
-  background: none;
-  border: none;
-  padding: 0;
-  color: hsl(225, 20%, 88%);
-  font-family: Helvetica;
-  font-size: 13px;
-}
-
-.rec-item .rec-play-name:hover {
-  color: hsl(34, 68%, 72%);
-}
-
-.rec-item .rec-steps {
-  font-size: 11px;
-  color: hsl(225, 12%, 55%);
-}
-
-.rec-item .rec-delete {
-  background: none;
-  border: none;
-  padding: 0 0.2rem;
-  color: hsl(225, 12%, 55%);
-  font-size: 15px;
-  line-height: 1;
-}
-
-.rec-item .rec-delete:hover {
-  color: hsl(353, 50%, 70%);
-}
-
-.rec-empty {
-  color: hsl(225, 12%, 55%);
-  font-size: 12.5px;
-  text-align: center;
-  padding: 0.4rem 0;
-}
-
-.rec-replay {
-  margin-top: 0.9rem;
-  padding-top: 0.9rem;
-  border-top: 1px dashed rgba(226, 232, 240, 0.16);
-}
-
-.rec-replay-title {
-  color: hsl(34, 68%, 72%);
-  font-weight: bold;
-  margin-bottom: 0.2rem;
-}
-
-.rec-replay-step {
-  min-height: 2.6em;
-  font-size: 12.5px;
-}
-
-.rec-replay-dots {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin: 0.5rem 0 0.7rem;
-}
-
-.rec-replay-dots i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(226, 232, 240, 0.2);
-}
-
-.rec-replay-dots i.done {
-  background: hsl(34, 68%, 72%);
-}
-
-.rec-replay-dots i.current {
-  background: #fff;
-  transform: scale(1.35);
-}
-
-.rec-replay-controls {
-  display: flex;
-  gap: 0.4rem;
-}
-
-.rec-hint {
-  margin: 1rem 0 0;
-  font-size: 11.5px;
-  color: hsl(225, 12%, 58%);
-}
-
-.rec-hint b {
-  color: hsl(225, 20%, 84%);
-}
-
-.calculator button.rec-flash {
-  box-shadow: 0 0 0 2px #fff, 0 0 14px 3px rgba(255, 255, 255, 0.6);
-}
-
-button span.sup {
-  font-size: xx-small !important;
-  vertical-align: super;
-}
-
-.sub {
-  font-size: xx-small;
-  vertical-align: bottom;
-}
-
-.xxs {
-  font-size: xx-small;
-}
-
-body {
-  background: #0f172a;
-}
-
-.calculator {
-  background: #292d33;
-}
-
-/* Mobile Screen Adjustments */
+/* =========================================
+   PERFECT MOBILE LAYOUT
+   ========================================= */
 @media (max-width: 600px) {
   html, body {
     width: 100%;
-    min-width: 0;
-    min-height: 100%;
+    height: 100vh;
+    height: 100dvh;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow: hidden; /* Prevents scrolling */
     background: #0f172a;
-  }
-
-  body {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: flex-start;
-    padding-top: 1rem;
   }
 
   body > h2,
@@ -673,81 +434,87 @@ body {
   }
 
   .workspace {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 100%;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    gap: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem; /* Outer margin so the rounded bottom shows */
+    box-sizing: border-box;
   }
 
   .calculator {
-    width: 95%;
-    max-width: 24rem;
-    height: auto;
-    min-height: 0;
-    box-sizing: border-box;
-    margin: 0 0 2rem 0; /* Creates the bottom blank space */
-    padding: 1.5rem 1rem 2rem 1rem;
+    width: 100%;
+    height: 100%; /* Fills the screen */
+    max-width: 26rem;
+    margin: 0;
+    padding: 1rem 1rem 1.5rem 1rem;
     border-radius: 10px 10px 100px 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
   }
 
   .model {
-    margin-bottom: 1rem;
-    flex: 0 0 auto;
+    margin-bottom: 0.5rem;
   }
 
   .screen {
-    flex: 0 0 5.2rem;
-    box-sizing: border-box;
-    margin: 0.5rem 0;
+    flex: 0 0 5.5rem;
+    margin: 0 0 1rem 0;
   }
 
   .modifiers {
     flex: 0 0 auto;
-    margin: 1rem 0 0.75rem;
+    margin: 0 0 1rem 0;
   }
 
+  /* Expand tables to fill vertical space */
   .function-keys {
-    flex: 0 0 auto;
-    margin: 1rem 0 0.5rem;
-  }
-
-  .function-keys td,
-  .basic-keys td {
-    padding-right: 0.15rem;
-  }
-
-  .function-keys button {
-    width: min(2.25rem, 100%);
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
   }
 
   .basic-keys {
-    flex: 0 0 auto;
-    margin-top: 0.5rem;
-    margin-bottom: 0;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding-bottom: 0.5rem;
   }
 
-  .basic-keys button {
-    width: min(2.5rem, 100%);
-  }
-}
-
-@media (max-width: 360px) {
-  .calculator {
-    padding: 0.75rem;
+  .function-keys tbody, .basic-keys tbody {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
   }
 
-  .function-keys button {
-    font-size: 0.7rem;
+  .function-keys tr, .basic-keys tr {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 
-  .basic-keys button {
-    height: 1.6rem;
+  .function-keys td, .basic-keys td {
+    flex: 1;
+    padding: 0.2rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Expand buttons to fill width evenly */
+  .function-keys button, .basic-keys button {
+    width: 100%;
+    height: 100%;
+    max-height: 2.8rem;
+    font-size: 1rem;
+  }
+
+  /* Fixed D-pad position to prevent overlapping */
+  .d-pad {
+    top: 14rem; 
   }
 }
