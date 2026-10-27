@@ -411,7 +411,7 @@ body { background: #0f172a; }
 .calculator { background: #292d33; }
 
 /* =========================================
-   PERFECT MOBILE LAYOUT (Matches 8:48 PM)
+   MOBILE LAYOUT (Exact Match to 8:48 PM)
    ========================================= */
 @media (max-width: 600px) {
   html, body {
@@ -440,16 +440,15 @@ body { background: #0f172a; }
     box-sizing: border-box;
   }
 
-  /* Sets the exact width and bottom blank space */
+  /* Fixed width and natural height to prevent stretching */
   .calculator {
     width: 94%;
-    max-width: 24rem;
+    max-width: 22rem; /* Locks the width to match Image 1 */
     height: auto;
-    margin: 0 0 2rem 0;
-    padding: 1.5rem 1rem 2.5rem 1rem;
+    margin: 0 0 2rem 0; /* Leaves the blank space at the bottom */
+    padding: 1.5rem 1rem 2rem 1rem;
     border-radius: 10px 10px 100px 30px;
-    display: flex;
-    flex-direction: column;
+    display: block; /* Removes flex stretching */
     box-sizing: border-box;
     box-shadow: 0 10px 30px rgba(0,0,0,0.6);
   }
@@ -459,7 +458,8 @@ body { background: #0f172a; }
   }
 
   .screen {
-    flex: 0 0 5.5rem;
+    flex: none;
+    height: 5.5rem;
     margin: 0.5rem 0 1rem 0;
   }
 
@@ -467,55 +467,49 @@ body { background: #0f172a; }
     margin: 1.5rem 0 1rem 0;
   }
 
-  .modifiers button {
-    width: 2.6rem;
-    height: 1.4rem;
-  }
-
-  /* Scales tables perfectly to fill width */
   .function-keys, .basic-keys {
     width: 100%;
     margin: 1rem 0;
+    display: table; /* Ensures table layout doesn't stretch */
   }
 
   .function-keys td, .basic-keys td {
     padding-bottom: 0.8rem;
     padding-right: 0.1rem;
     padding-left: 0.1rem;
+    display: table-cell; /* Keeps the grid intact */
   }
 
-  /* Fluid buttons that fill the cells but cap at a maximum size */
+  /* Restores fixed button sizing so gaps appear */
   .function-keys button {
-    width: 100%;
-    max-width: 3.2rem;
-    height: 2.2rem;
-    font-size: 1rem;
-    border-radius: 6px;
+    width: 2.4rem;
+    height: 1.7rem;
+    font-size: 0.85rem;
+    border-radius: 5px;
   }
 
   .basic-keys button {
-    width: 100%;
-    max-width: 3.8rem;
-    height: 2.4rem;
-    font-size: 1.1rem;
+    width: 2.7rem;
+    height: 2rem;
+    font-size: 1rem;
   }
 
-  /* Exact absolute positioning over the keys (No hardcoded flex stretching) */
+  /* D-Pad exact placement over the middle column */
   .d-pad {
-    top: 15.8rem; 
-    width: 82px;
-    height: 74px;
+    top: 15.2rem; 
+    width: 80px;
+    height: 72px;
   }
 
   .replay {
-    width: 82px;
-    height: 74px;
-    line-height: 74px;
+    width: 80px;
+    height: 72px;
+    line-height: 72px;
     font-size: 10px;
   }
 
-  .nav.up { left: 28px; top: 2px; }
-  .nav.down { left: 28px; top: 50px; }
-  .nav.left { left: 2px; top: 26px; }
-  .nav.right { left: 54px; top: 26px; }
+  .nav.up { left: 27px; top: 2px; }
+  .nav.down { left: 27px; top: 48px; }
+  .nav.left { left: 2px; top: 25px; }
+  .nav.right { left: 52px; top: 25px; }
 }
