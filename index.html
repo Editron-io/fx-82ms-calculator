@@ -226,7 +226,7 @@
 
         // Vibration is supported mainly by Android browsers; iOS Safari may ignore it.
         if (typeof navigator.vibrate === 'function') {
-          try { navigator.vibrate(12); } catch (_) {}
+          try { navigator.vibrate(20); } catch (_) {}
         }
 
         // Generate a brief, quiet electronic key tone without external audio files.
