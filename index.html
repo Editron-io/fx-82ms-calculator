@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="./images/favicon.ico" sizes="any" />
   <script src="calculator.js" defer></script>
@@ -41,13 +41,14 @@
       <button class="mode simple-button" id="btn-mode" tabindex="3"></button>
     </div>
 
-    <div class="replay">Replay</div>
-
-    <button class="nav up">▲</button>
-    <button class="nav down">▼</button>
-    <button class="nav left">◀︎</button>
-    <button class="nav right">▶︎</button>
-
+    <!-- D-Pad Wrapper for perfectly fluid positioning -->
+    <div class="d-pad">
+      <div class="replay">Replay</div>
+      <button class="nav up">▲</button>
+      <button class="nav down">▼</button>
+      <button class="nav left">◀︎</button>
+      <button class="nav right">▶︎</button>
+    </div>
 
     <table class="function-keys">
       <tr>
@@ -158,7 +159,7 @@
           </button>
         </td>
         <td>
-          <button class="exp center-shift simple-button" data-key="69" data-func="exp">
+          <button class="exp center-shift simple-button" data-func="exp">
             EXP
           </button>
         </td>
@@ -224,9 +225,9 @@
         const button = event.target.closest('button');
         if (!button || button.disabled) return;
 
-        // Vibration is supported mainly by Android browsers; iOS Safari may ignore it.
-        if (typeof navigator.vibrate === 'function') {
-          try { navigator.vibrate(20); } catch (_) {}
+        // Vibration is supported mainly by Android browsers; iOS Safari ignores it.
+        if (window.navigator && typeof window.navigator.vibrate === 'function') {
+          try { window.navigator.vibrate(25); } catch (_) {}
         }
 
         // Generate a brief, quiet electronic key tone without external audio files.

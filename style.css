@@ -51,7 +51,6 @@ body > h5 {
 .model {
   display: block;
   text-align: right;
-  /* keeps the casing spacing the removed brand labels used to occupy */
   margin-bottom: 1.7rem;
   font-size: 90%;
   font-style: italic;
@@ -59,9 +58,6 @@ body > h5 {
   font-weight: 700;
 }
 
-/* The LCD is painted onto a canvas by lcd-display.js. The .indicators,
-   .input and .main-display elements stay in the DOM as the source of
-   truth for the renderer, but are not themselves visible. */
 .screen {
   width: 100%;
   height: 5.2rem;
@@ -85,7 +81,6 @@ body > h5 {
   pointer-events: none;
 }
 
-/* Glass sheen over the finished pixels */
 .screen::after {
   content: "";
   position: absolute;
@@ -103,7 +98,6 @@ body > h5 {
   background: linear-gradient(to bottom, #93a695, #849682);
 }
 
-/* Not rendered, so innerText reads back exactly what was written */
 .screen .indicators,
 .screen .input,
 .screen .main-display {
@@ -142,7 +136,6 @@ td {
   text-align: center;
 }
 
-/* Trimmed to offset the taller LCD, so the replay pad stays aligned */
 .modifiers {
   margin: 1.5rem 0 1.15rem 0;
 }
@@ -205,19 +198,26 @@ td {
   content: "ON";
 }
 
-.replay {
-  background: linear-gradient(to top, hsl(221, 14%, 66%), hsl(221, 14%, 71%));
+/* NEW FLUID D-PAD CONTAINER */
+.d-pad {
+  position: absolute;
+  top: 27%;
+  left: 50%;
+  transform: translateX(-50%);
   width: 78px;
   height: 70px;
-  line-height: 70px;
+  z-index: 10;
+}
+
+.replay {
+  background: linear-gradient(to top, hsl(221, 14%, 66%), hsl(221, 14%, 71%));
   position: absolute;
-  left: 38%;
-  top: 30%;
+  inset: 0;
   border-radius: 125px;
   text-transform: uppercase;
   font-size: 9px;
   text-align: center;
-  vertical-align: middle;
+  line-height: 70px;
   box-shadow: 2px 2px 5px 0 hsla(0, 0%, 0%, 0.75);
 }
 
@@ -234,25 +234,25 @@ button.nav {
   z-index: 2;
 }
 
-/* Replay pad: 78x70px circle at left 38% / top 30% */
+/* Relative to the .d-pad container */
 .nav.up {
-  left: calc(38% + 26px);
-  top: calc(30% + 1px);
+  left: 26px;
+  top: 1px;
 }
 
 .nav.down {
-  left: calc(38% + 26px);
-  top: calc(30% + 47px);
+  left: 26px;
+  top: 47px;
 }
 
 .nav.left {
-  left: calc(38% + 1px);
-  top: calc(30% + 24px);
+  left: 1px;
+  top: 24px;
 }
 
 .nav.right {
-  left: calc(38% + 51px);
-  top: calc(30% + 24px);
+  left: 51px;
+  top: 24px;
 }
 
 button.nav.active {
@@ -309,14 +309,12 @@ button::after {
   display: inline-block;
 }
 
-/* shift */
 button::before {
   color: hsl(34, 68%, 72%);
   left: 0;
   text-align: left;
 }
 
-/* alpha */
 button::after {
   color: hsl(353, 50%, 70%);
   right: 0;
@@ -328,121 +326,43 @@ button::after {
   text-align: center;
 }
 
-.del::before {
-  content: "INS";
-}
-.ac::before {
-  content: "OFF";
-}
-.reciprocal::before {
-  content: "x!";
-}
-.combin::before {
-  content: "nPr";
-}
-.pol::before {
-  content: "Rec(";
-}
-.pol::after {
-  content: ":";
-}
-.cube::before {
-  content: "\221b";
-}
-.frac::before {
-  content: "d/c";
-}
-.pow::before {
-  content: "ˣ \221A";
-}
-.log::before {
-  content: "10 ˣ";
-}
-.ln::before {
-  content: "e ˣ";
-}
-.ln::after {
-  content: "e";
-}
-.minus::before {
-  content: "";
-}
-.minus::after {
-  content: "A";
-}
-.deg::before {
-  content: "\2190";
-}
-.deg::after {
-  content: "B";
-}
-.hyp::after {
-  content: "C";
-}
-.sin::before {
-  content: "sin \207b\b9";
-}
-.cos::before {
-  content: "cos \207b\b9";
-}
-.tan::before {
-  content: "tan \207b\b9";
-}
-.sin::after {
-  content: "D";
-}
-.cos::after {
-  content: "E";
-}
-.tan::after {
-  content: "F";
-}
-.rcl::before {
-  content: "STO";
-}
-.eng::before {
-  content: "\2190";
-}
-.close-paren::after {
-  content: "X";
-}
-.comma::before {
-  content: ";";
-}
-.comma::after {
-  content: "Y";
-}
-.mem-plus::before {
-  content: "M-";
-}
-.mem-plus::after {
-  content: "M";
-}
-.zero::before {
-  content: "Rnd";
-}
-.period::before {
-  content: "Ran#";
-}
-.exp::before {
-  content: "\03c0";
-}
-.ans::before {
-  content: "DRG\25ba";
-}
-.equals::before {
-  content: "%";
-}
-.one::before {
-  content: "S-SUM";
-  font-size: 8px;
-  top: -10px;
-}
-.two::before {
-  content: "S-VAR";
-  font-size: 8px;
-  top: -10px;
-}
+.del::before { content: "INS"; }
+.ac::before { content: "OFF"; }
+.reciprocal::before { content: "x!"; }
+.combin::before { content: "nPr"; }
+.pol::before { content: "Rec("; }
+.pol::after { content: ":"; }
+.cube::before { content: "\221b"; }
+.frac::before { content: "d/c"; }
+.pow::before { content: "ˣ \221A"; }
+.log::before { content: "10 ˣ"; }
+.ln::before { content: "e ˣ"; }
+.ln::after { content: "e"; }
+.minus::before { content: ""; }
+.minus::after { content: "A"; }
+.deg::before { content: "\2190"; }
+.deg::after { content: "B"; }
+.hyp::after { content: "C"; }
+.sin::before { content: "sin \207b\b9"; }
+.cos::before { content: "cos \207b\b9"; }
+.tan::before { content: "tan \207b\b9"; }
+.sin::after { content: "D"; }
+.cos::after { content: "E"; }
+.tan::after { content: "F"; }
+.rcl::before { content: "STO"; }
+.eng::before { content: "\2190"; }
+.close-paren::after { content: "X"; }
+.comma::before { content: ";"; }
+.comma::after { content: "Y"; }
+.mem-plus::before { content: "M-"; }
+.mem-plus::after { content: "M"; }
+.zero::before { content: "Rnd"; }
+.period::before { content: "Ran#"; }
+.exp::before { content: "\03c0"; }
+.ans::before { content: "DRG\25ba"; }
+.equals::before { content: "%"; }
+.one::before { content: "S-SUM"; font-size: 8px; top: -10px; }
+.two::before { content: "S-VAR"; font-size: 8px; top: -10px; }
 
 /* Example recorder */
 .recorder {
@@ -700,7 +620,6 @@ button::after {
   color: hsl(225, 20%, 84%);
 }
 
-/* Key lit up by the replay */
 .calculator button.rec-flash {
   box-shadow: 0 0 0 2px #fff, 0 0 14px 3px rgba(255, 255, 255, 0.6);
 }
@@ -719,7 +638,6 @@ button span.sup {
   font-size: xx-small;
 }
 
-/* Fixed light-black calculator casing; page background remains blue-grey. */
 body {
   background: #0f172a;
 }
@@ -728,7 +646,7 @@ body {
   background: #292d33;
 }
 
-/* Mobile Fixes */
+/* Mobile Screen Adjustments */
 @media (max-width: 600px) {
   html, body {
     width: 100%;
@@ -771,7 +689,7 @@ body {
     height: auto;
     min-height: 0;
     box-sizing: border-box;
-    margin: 0 0 2rem 0; /* Creates the small blank area at the bottom */
+    margin: 0 0 2rem 0; /* Creates the bottom blank space */
     padding: 1.5rem 1rem 2rem 1rem;
     border-radius: 10px 10px 100px 30px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.6);
@@ -817,28 +735,6 @@ body {
 
   .basic-keys button {
     width: min(2.5rem, 100%);
-  }
-
-  /* Perfectly center the D-pad on mobile */
-  .replay {
-    top: 13.5rem;
-    left: calc(50% - 39px);
-  }
-  .nav.up {
-    left: calc(50% - 13px);
-    top: calc(13.5rem + 1px);
-  }
-  .nav.down {
-    left: calc(50% - 13px);
-    top: calc(13.5rem + 47px);
-  }
-  .nav.left {
-    left: calc(50% - 38px);
-    top: calc(13.5rem + 24px);
-  }
-  .nav.right {
-    left: calc(50% + 12px);
-    top: calc(13.5rem + 24px);
   }
 }
 
